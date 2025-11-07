@@ -1,0 +1,30 @@
+/*Mini Project Task (for GitHub)
+
+"Salary Insights Report"
+
+Create a single query returning:
+
+| employee | department | salary | salary_band | tax_rate | bonus_status |
+
+Use CASE + JOIN + COALESCE*/
+
+SELECT E.Emp_id,E.Frist_name, E.Last_name,
+  COALESCE(D.dept_name, 'NOT ASSIGNED') AS Dept_NAME,
+E.Salary,
+CASE
+WHEN Salary>= 90000 THEN 'HIGH'
+WHEN Salary BETWEEN 70000 AND 89999 THEN 'MEDIUM'
+ELSE'LOW'
+END AS Salary_Band,
+CASE
+WHEN Salary>= 90000 THEN '21%'
+WHEN Salary BETWEEN 70000 AND 89999 THEN '15%'
+ELSE'9%'
+END AS Tax_rate,
+CASE
+WHEN Salary>= 90000 THEN 'Eligible for Bonus'
+Else 'NOT Eligible'
+END AS Bouns_Status
+FROM Employee E
+LEFT JOIN Department D
+ON E.Dept_id=D.dept_id;
